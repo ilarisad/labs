@@ -9,7 +9,9 @@
       "name": "cds serve",
       "request": "launch",
       "type": "node-terminal",
-      "skipFiles": [ "<node_internals>/**" ]
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
     }
   ]
 }
