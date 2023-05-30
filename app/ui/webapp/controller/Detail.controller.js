@@ -49,6 +49,13 @@ sap.ui.define([
                     $$updateGroupId: "roomEdit"
                 }
 			});
+
+            this.byId("scheduleTable").bindElement({
+				path: `/MovieToRoomMapping/${this._roomId}`,
+                parameters: {
+                    $$updateGroupId: "movieEdit"
+                }
+			});
 		},
 
         handleEdit: function(oEvent){

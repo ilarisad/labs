@@ -17,11 +17,11 @@
 				<headerTitle>
 					<ObjectPageDynamicHeaderTitle>
 						<expandedHeading>
-							<m:Title text="Room {ID}" wrapping="true" class="sapUiSmallMarginEnd"/>
+							<m:Title text="Room {ROOM_ID}" wrapping="true" class="sapUiSmallMarginEnd"/>
 						</expandedHeading>
 
 						<snappedHeading>
-							<m:Title text="Room {ID}" wrapping="true" class="sapUiSmallMarginEnd"/>
+							<m:Title text="Room {ROOM_ID}" wrapping="true" class="sapUiSmallMarginEnd"/>
 						</snappedHeading>
 
 						<navigationActions>
@@ -75,7 +75,7 @@
                                 <m:Table
                                     mode="{= ${screenMode>/edit} ? 'MultiSelect' : 'None'}"
                                     id="scheduleTable"
-                                    items="{path: '/MovieToRoomMapping'}">
+                                    >
                                     <m:columns>
                                         <m:Column>
                                             <m:Text text="Day"/>
@@ -90,13 +90,13 @@
                                     <m:items>
                                         <m:ColumnListItem >
                                             <m:cells>
-                                                <m:DatePicker editable="{= ${screenMode>/edit} &amp;&amp; %{NEW} === true }" 
+                                                <m:DatePicker editable="{= ${screenMode>/edit}}" 
                                                     valueFormat="YYYY-MM-dd" value="{DAY}" />
                                                 <m:DateTimePicker 
-                                                    valueFormat = "yyyy-MM-ddTHH:mm:ssZ" editable="{= ${screenMode>/edit} &amp;&amp; %{NEW} === true}" value="{START_TIME}" />
-                                                <m:ComboBox editable="{= ${screenMode>/edit} &amp;&amp; %{NEW} === true}" items="{path:'/Movies', templateShareable:true}" selectedKey="{MOVIE_ID}">
+                                                    valueFormat = "yyyy-MM-ddTHH:mm:ssZ" editable="{= ${screenMode>/edit}}" value="{START_TIME}" />
+                                                <m:ComboBox editable="{= ${screenMode>/edit}}" items="{path:'/Movies', templateShareable:true}"  selectedKey="{MOVIE_ID_MOVIE_ID}">
                                                     <m:items>
-                                                        <core:Item text="{NAME}" key="{ID}"/>
+                                                        <core:Item text="{NAME}" key="{MOVIE_ID}"/>
                                                     </m:items>
                                                 </m:ComboBox>
                                             </m:cells>
