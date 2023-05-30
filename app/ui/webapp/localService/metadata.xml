@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="CinemaAdmin" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Rooms" EntityType="CinemaAdmin.Rooms">
+                    <NavigationPropertyBinding Path="LINK_TO_MAPPINGS" Target="MovieToRoomMappings"/>
+                </EntitySet>
+                <EntitySet Name="Movies" EntityType="CinemaAdmin.Movies"/>
+                <EntitySet Name="MovieToRoomMappings" EntityType="CinemaAdmin.MovieToRoomMappings">
+                    <NavigationPropertyBinding Path="MOVIE" Target="Movies"/>
+                    <NavigationPropertyBinding Path="ROOM" Target="Rooms"/>
+                </EntitySet>
+                <ActionImport Name="deepMovieToRoomMappings" Action="CinemaAdmin.deepMovieToRoomMappings" EntitySet="Rooms"/>
+            </EntityContainer>
+            <EntityType Name="Rooms">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="NAME" Type="Edm.String" MaxLength="64"/>
+                <Property Name="CAPACITY" Type="Edm.Int32"/>
+                <NavigationProperty Name="LINK_TO_MAPPINGS" Type="Collection(CinemaAdmin.MovieToRoomMappings)"/>
+            </EntityType>
+            <EntityType Name="Movies">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="NAME" Type="Edm.String" MaxLength="64"/>
+                <Property Name="PRICE" Type="Edm.Decimal" Scale="2" Precision="5"/>
+                <Property Name="GENRE" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="MovieToRoomMappings">
+                <Key>
+                    <PropertyRef Name="DAY"/>
+                    <PropertyRef Name="START_TIME"/>
+                    <PropertyRef Name="MOVIE_ID"/>
+                    <PropertyRef Name="ROOM_ID"/>
+                </Key>
+                <Property Name="DAY" Type="Edm.String" Nullable="false"/>
+                <Property Name="START_TIME" Type="Edm.String" Precision="7" Nullable="false"/>
+                <NavigationProperty Name="MOVIE" Type="CinemaAdmin.Movies">
+                    <ReferentialConstraint Property="MOVIE_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="MOVIE_ID" Type="Edm.Int32" Nullable="false"/>
+                <NavigationProperty Name="ROOM" Type="CinemaAdmin.Rooms">
+                    <ReferentialConstraint Property="ROOM_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="ROOM_ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="NEW" Type="Edm.Boolean"/>
+            </EntityType>
+            <Action Name="deepMovieToRoomMappings" IsBound="false">
+                <Parameter Name="mappings" Type="Collection(CinemaAdmin.MovieToRoomMappings)" Nullable="false"/>
+                <Parameter Name="room" Type="CinemaAdmin.Rooms"/>
+                <Parameter Name="movie" Type="CinemaAdmin.Movies"/>
+                <ReturnType Type="CinemaAdmin.Rooms"/>
+            </Action>
+            <Annotations Target="CinemaAdmin.MovieToRoomMappings/NEW">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

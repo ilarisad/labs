@@ -1,0 +1,121 @@
+<mvc:View displayBlock="true" controllerName="LABS.ui.controller.Detail" height="100%"
+		xmlns="sap.uxap" xmlns:l="sap.ui.layout"
+        xmlns:core="sap.ui.core"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:m="sap.m"
+		xmlns:f="sap.f"
+		xmlns:form="sap.ui.layout.form">
+
+	<ObjectPageLayout id="ObjectPageLayout"
+					 showTitleInHeaderContent="true"
+					alwaysShowContentHeader="false"
+					preserveHeaderStateOnScroll="false"
+					headerContentPinnable="true"
+					isChildPage="true"
+					upperCaseAnchorBar="false"
+                    showFooter="{screenMode>/edit}">
+				<headerTitle>
+					<ObjectPageDynamicHeaderTitle>
+						<expandedHeading>
+							<m:Title text="Room {ID}" wrapping="true" class="sapUiSmallMarginEnd"/>
+						</expandedHeading>
+
+						<snappedHeading>
+							<m:Title text="Room {ID}" wrapping="true" class="sapUiSmallMarginEnd"/>
+						</snappedHeading>
+
+						<navigationActions>
+							<m:OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="Enter Full Screen Mode" visible="{= ${layout>/isFullScreen} !== true }"/>
+							<m:OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="Exit Full Screen Mode" visible="{= ${layout>/isFullScreen} === true }"/>
+							<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleCloseColumn"  tooltip="Close middle column" visible="{= ${layout>/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+						</navigationActions>
+
+						<actions>
+							<m:Button
+									text="Edit"
+									type="Emphasized"
+                                    visible="{= !${screenMode>/edit}}"
+									press=".handleEdit"/>
+                            <m:Button
+									text="Delete"
+                                    visible="{= !${screenMode>/edit}}"
+									type="Transparent"
+                                    press=".handleDeleteRoom"/>        
+						</actions>
+
+					</ObjectPageDynamicHeaderTitle>
+				</headerTitle>
+
+				<headerContent>
+					<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+						<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+							<m:Label text="Name"/>
+							<m:Input  editable="{screenMode>/edit}" value="{NAME}"/>
+						</m:VBox>
+						<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+							<m:Label text="Capacity"/>
+							<m:Input editable="{screenMode>/edit}" value="{CAPACITY}"/>
+						</m:VBox>
+					</m:FlexBox>
+				</headerContent>
+
+		<sections>
+			<ObjectPageSection title="Schedule">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+                            <l:Grid defaultSpan="XL12 L12 M12 S12" vSpacing="0" hSpacing="0">
+                                <m:OverflowToolbar visible="{screenMode>/edit}" height="35px">
+                                    <m:ToolbarSpacer/>
+                                    <m:OverflowToolbarButton icon="sap-icon://add" type="Transparent"
+                                        press=".onAddMapping"/>
+                                    <m:OverflowToolbarButton icon="sap-icon://delete" type="Transparent" 
+                                        press=".onDeleteMapping"/>
+                                </m:OverflowToolbar>
+                                <m:Table
+                                    mode="{= ${screenMode>/edit} ? 'MultiSelect' : 'None'}"
+                                    id="scheduleTable"
+                                    items="{path: '/MovieToRoomMapping'}">
+                                    <m:columns>
+                                        <m:Column>
+                                            <m:Text text="Day"/>
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Text text="Start Time"/>
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Text text="Movie"/>
+                                        </m:Column>
+                                    </m:columns>
+                                    <m:items>
+                                        <m:ColumnListItem >
+                                            <m:cells>
+                                                <m:DatePicker editable="{= ${screenMode>/edit} &amp;&amp; %{NEW} === true }" 
+                                                    valueFormat="YYYY-MM-dd" value="{DAY}" />
+                                                <m:DateTimePicker 
+                                                    valueFormat = "yyyy-MM-ddTHH:mm:ssZ" editable="{= ${screenMode>/edit} &amp;&amp; %{NEW} === true}" value="{START_TIME}" />
+                                                <m:ComboBox editable="{= ${screenMode>/edit} &amp;&amp; %{NEW} === true}" items="{path:'/Movies', templateShareable:true}" selectedKey="{MOVIE_ID}">
+                                                    <m:items>
+                                                        <core:Item text="{NAME}" key="{ID}"/>
+                                                    </m:items>
+                                                </m:ComboBox>
+                                            </m:cells>
+                                        </m:ColumnListItem>
+                                    </m:items>
+                                </m:Table>
+                            </l:Grid>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+
+        <footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer/>
+				<m:Button type="Emphasized" text="Save" press=".handleSave" tooltip="Save" visible="{screenMode>/edit}"/>
+				<m:Button type="Transparent" text="Cancel" press=".handleCancel" tooltip="Cancel" visible="{screenMode>/edit}"/>
+			</m:OverflowToolbar>
+		</footer>
+	</ObjectPageLayout>
+</mvc:View>

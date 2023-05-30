@@ -1,0 +1,63 @@
+<mvc:View displayBlock="true" controllerName="LABS.ui.controller.Master" height="100%"
+	  xmlns="sap.m"
+	  xmlns:f="sap.f"
+	  xmlns:mvc="sap.ui.core.mvc">
+	<f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Rooms"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<!-- DynamicPage Content -->
+		<f:content>
+			<Table
+				id="roomsTable"
+				mode="SingleSelectMaster"
+				itemPress="onRoomPress"
+				inset="false"
+				items="{
+					path: '/Rooms',
+					sorter: {
+						path: 'ROOM_ID'
+					}
+				}"
+				class="sapFDynamicPageAlignContent"
+			    >
+				<headerToolbar>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<SearchField search="onSearch" width="17.5rem"/>
+						<OverflowToolbarButton icon="sap-icon://add" type="Transparent" press="onAdd"/>
+						<OverflowToolbarButton icon="sap-icon://sort" type="Transparent" press="onSort"/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="12em">
+						<Text text="ID" />
+					</Column>
+					<Column	hAlign="End">
+						<Text text="Name" />
+					</Column>
+                    <Column	hAlign="End">
+						<Text text="Capacity" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation">
+						<cells>
+                            <ObjectIdentifier title="{ROOM_ID}" />
+							<ObjectIdentifier text="{NAME}" />
+							<ObjectNumber number="{
+										path: 'CAPACITY',
+										type: 'sap.ui.model.type.Integer'
+									}" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

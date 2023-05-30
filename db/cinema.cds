@@ -16,9 +16,9 @@ entity Movies {
 };
 
 entity Actors { 
- key  ID: Integer;
+  key ID: Integer;
   NAME  : String(64); 
-  MOVIE_ID: String(64); 
+  MOVIE_ID: Integer;
 };
 
 
@@ -28,6 +28,12 @@ entity Movie_to_room_mappings {
     key MOVIE_ID: Association to one Movies;
     key ROOM_ID: Association to one Rooms;
 };
+
+DEFINE VIEW MOVIE_DETAILS AS
+SELECT actor.NAME as ACTOR_NAME, ACTORS, ROOM_NAME, TIME, movie.NAME, actor.MOVIE_ID as MOVIE
+	FROM cinema.Movies as movie 
+  LEFT outer join cinema.Actors as actor
+  ON(actor.MOVIE_ID = movie.MOVIE_ID);
 
 // type Genre : String enum {
 //     action;

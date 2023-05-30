@@ -1,0 +1,153 @@
+{
+  "_version": "1.12.0",
+  "sap.app": {
+    "id": "LABS.ui",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap-ux/fiori-freestyle-writer:basic",
+      "version": "0.11.6"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/cinema-admin/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.101.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "LABS.ui.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true,
+          "groupId": "$auto"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+        "config": {
+            "routerClass": "sap.f.routing.Router",
+            "type": "View",
+            "viewType": "XML",
+            "path": "LABS.ui.view",
+            "controlId": "fcl",
+            "transition": "slide",
+            "async": true
+        },
+      "routes": [
+        {
+            "pattern": "",
+            "name": "master",
+            "layout": "OneColumn",
+            "target": [
+                "master"
+            ]
+        },
+        {
+            "pattern": "new",
+            "name": "new",
+            "layout": "TwoColumnsMidExpanded",
+            "target": [
+                "master",
+                "new"
+            ]
+        },
+        {
+            "pattern": "detail/{room}",
+            "name": "detail",
+            "layout": "TwoColumnsMidExpanded",
+            "target": [
+                "master",
+                "detail"
+            ]
+        }
+      ],
+      "targets": {
+        "master": {
+            "viewPath": "LABS.ui.view",
+            "viewName": "Master",
+            "controlAggregation": "beginColumnPages"
+        },
+        "new": {
+            "viewPath": "LABS.ui.view",
+            "viewName": "New",
+            "controlAggregation": "midColumnPages"
+        },
+        "detail": {
+            "viewPath": "LABS.ui.view",
+            "viewName": "Detail",
+            "controlAggregation": "midColumnPages"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "LABS.ui.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}
