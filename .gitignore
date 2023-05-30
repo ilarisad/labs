@@ -36,7 +36,12 @@ mta_archives/
 db/.env
 # auto generated wildcard
 gen/db/.env
+<<<<<<< HEAD
 # auto generated wildcard
 gen/db/.env
 # auto generated wildcard
 gen/db/.env
+=======
+
+mta.yaml
+>>>>>>> 7108aa4a2a9e0d188729eb91faf1c83da2b8cf2d
