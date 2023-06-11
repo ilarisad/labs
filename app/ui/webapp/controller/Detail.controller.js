@@ -50,12 +50,12 @@ sap.ui.define([
                 }
 			});
 
-            this.byId("scheduleTable").bindElement({
-				path: `/MovieToRoomMapping/${this._roomId}`,
-                parameters: {
-                    $$updateGroupId: "movieEdit"
-                }
-			});
+            // this.byId("scheduleTable").bindElement({
+			// 	path: `/MovieToRoomMapping/${this._roomId}`,
+            //     parameters: {
+            //         $$updateGroupId: "movieEdit"
+            //     }
+			// });
 		},
 
         handleEdit: function(oEvent){
@@ -65,14 +65,15 @@ sap.ui.define([
         handleCancel: function(oEvent){
             this.getView().getModel("screenMode").setProperty("/edit", false);
             this.getView().getModel().resetChanges("roomEdit");
+            // this.getView().getModel().resetChanges("movieEdit");
         },
 
         onAddMapping: function(oEvent){
             const oTable = this.getView().byId("scheduleTable");
             const oNewContext = oTable.getBinding("items").create({
-                ROOM_ID: parseInt(this._roomId),
-                NEW: true,
-                MOVIE_ID: null,
+                ROOM_ID_ROOM_ID: parseInt(this._roomId),
+                // NEW: true,
+                MOVIE_ID_MOVIE_ID: null,
                 DAY: null,
                 START_TIME: null
             });
@@ -107,9 +108,27 @@ sap.ui.define([
                 this.getView().getModel().refresh();
                 this.getView().getModel("screenMode").setProperty("/edit", false);                
             }.bind(this)).catch(function(err){
-                this.getView().getModel().resetChanges("roomEdit");
+                // this.getView().getModel().resetChanges("roomEdit");
                 MessageBox.error(err.message);
             });
+
+            // this.getView().getModel().submitBatch("movieEdit").then(function(){
+            //     //check for error messages
+            //     const aMsg = sap.ui.getCore().getMessageManager().getMessageModel().getData();
+            //     if(aMsg.length && aMsg[0].type === "Error"){
+            //         MessageBox.error(aMsg[0].message);
+            //         this.getView().getModel().resetChanges("roomEdit");
+            //         return
+            //     }
+                
+            //     //handle successfull call
+            //     sap.m.MessageToast.show("Changes successfully submitted");
+            //     this.getView().getModel().refresh();
+            //     this.getView().getModel("screenMode").setProperty("/edit", false);                
+            // }.bind(this)).catch(function(err){
+            //     this.getView().getModel().resetChanges("roomEdit");
+            //     MessageBox.error(err.message);
+            // });
         },
 
         handleDeleteRoom: function(oEvent){

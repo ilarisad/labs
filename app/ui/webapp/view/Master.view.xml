@@ -7,7 +7,7 @@
 		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<Title text="Rooms"/>
+					<Title text="Rooom"/>
 				</f:heading>
 			</f:DynamicPageTitle>
 		</f:title>
@@ -36,7 +36,7 @@
 				</headerToolbar>
 				<columns>
 					<Column width="12em">
-						<Text text="ID" />
+						<Text text="ROOM_ID" />
 					</Column>
 					<Column	hAlign="End">
 						<Text text="Name" />

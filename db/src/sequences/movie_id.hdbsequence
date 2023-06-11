@@ -1,0 +1,3 @@
+SEQUENCE "movie_id"
+START WITH 1
+NO CYCLE

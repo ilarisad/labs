@@ -9,13 +9,13 @@ class CinemaAdmin extends cds.ApplicationService {
 
             // Populate ID column from database sequence
             const [{SEQ: roomId}] = await cds.run(`SELECT "room_id".nextval as SEQ FROM dummy;`);
-            req.data.ID = roomId;
+            req.data.ROOM_ID = roomId;
         })
 
         this.before("CREATE", "Movies", async (req) => {       
             // Populate ID column from database sequence
             const [{SEQ: movieId}] = await cds.run(`SELECT "movie_id".nextval as SEQ FROM dummy;`);
-            req.data.ID = movieId;
+            req.data.MOVIE_ID = movieId;
         })
         await super.init()
     }

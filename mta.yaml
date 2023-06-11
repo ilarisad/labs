@@ -3,11 +3,19 @@ ID: cinema
 description: A simple CAP project.
 version: 1.0.0
 modules:
+- name: cinema-ui
+  type: html5
+  path: app/ui
+  parameters:
+    disk-quota: 256M
+    memory: 128M
+  requires:
+    - name: srv-api
 - name: cinema-srv
   type: nodejs
   path: gen/srv
   requires:
-  - name: cross-container-service-2
+  - name: cross-container-service-1
   provides:
   - name: srv-api
     properties:
@@ -21,7 +29,7 @@ modules:
   type: hdb
   path: gen/db
   requires:
-  - name: cross-container-service-2
+  - name: cross-container-service-1
     group: SERVICE_REPLACEMENTS
     properties:
       key: ServiceName_2
@@ -29,7 +37,7 @@ modules:
   parameters:
     buildpack: nodejs_buildpack
 resources:
-- name: cross-container-service-2
+- name: cross-container-service-1
   type: org.cloudfoundry.existing-service
   parameters:
     service-name: labs-hdi

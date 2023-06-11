@@ -78,7 +78,7 @@
                                                 <m:DateTimePicker valueFormat = "yyyy-MM-ddTHH:mm:ssZ" value="{newRoom>START_TIME}" />
                                                 <m:ComboBox items="{/Movies}" selectedKey="{newRoom>MOVIE_ID}">
                                                     <m:items>
-                                                        <core:Item text="{NAME}" key="{ID}"/>
+                                                        <core:Item text="{NAME}" key="{MOVIE_ID}"/>
                                                     </m:items>
                                                 </m:ComboBox>
                                             </m:cells>

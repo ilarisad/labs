@@ -74,8 +74,7 @@
                                 </m:OverflowToolbar>
                                 <m:Table
                                     mode="{= ${screenMode>/edit} ? 'MultiSelect' : 'None'}"
-                                    id="scheduleTable"
-                                    >
+                                    id="scheduleTable"  items="{path: 'LINK_TO_MAPPINGS', parameters: {$$updateGroupId: 'roomEdit'}}">
                                     <m:columns>
                                         <m:Column>
                                             <m:Text text="Day"/>
@@ -92,7 +91,7 @@
                                             <m:cells>
                                                 <m:DatePicker editable="{= ${screenMode>/edit}}" 
                                                     valueFormat="YYYY-MM-dd" value="{DAY}" />
-                                                <m:DateTimePicker 
+                                                <m:DateTimePicker id="test"
                                                     valueFormat = "yyyy-MM-ddTHH:mm:ssZ" editable="{= ${screenMode>/edit}}" value="{START_TIME}" />
                                                 <m:ComboBox editable="{= ${screenMode>/edit}}" items="{path:'/Movies', templateShareable:true}"  selectedKey="{MOVIE_ID_MOVIE_ID}">
                                                     <m:items>

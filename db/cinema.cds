@@ -6,6 +6,7 @@ entity Rooms {
   key ROOM_ID  : Integer;
       NAME     : String(64);
       CAPACITY : Integer;
+      LINK_TO_MAPPINGS : Association [1..*] to Movie_to_room_mappings on LINK_TO_MAPPINGS.ROOM_ID.ROOM_ID = ROOM_ID;
 };
 
 entity Movies {
